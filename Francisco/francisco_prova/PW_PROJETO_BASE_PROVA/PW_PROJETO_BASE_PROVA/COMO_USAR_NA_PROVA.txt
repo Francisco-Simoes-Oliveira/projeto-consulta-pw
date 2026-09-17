@@ -1,0 +1,39 @@
+PROJETO BASE PW - USO RÁPIDO
+
+LOGIN PRONTO
+admin@teste.com
+123456
+
+BACKEND
+cd backend
+mvnw.cmd spring-boot:run
+
+FRONTEND
+cd frontend
+npm install
+npm run dev
+
+ENDEREÇOS
+Frontend: http://localhost:5173
+Backend: http://localhost:8080
+Swagger: http://localhost:8080/swagger-ui.html
+H2: http://localhost:8080/h2-console
+
+PARA ADAPTAR UMA QUESTÃO
+1) Duplique/renomeie a feature backend/item.
+2) Troque os campos em Item.java.
+3) Troque os campos e validações em ItemRequest.java.
+4) Ajuste Repository -> Service -> Controller.
+5) No React ajuste itemService.js e ItemsPage.jsx.
+
+CTRL+SHIFT+F NO PROJETO
+Pesquise: Item
+Pesquise: @NotBlank
+Pesquise: @Valid
+Pesquise: Jwt
+Pesquise: Authorization
+Pesquise: WebSocket
+Pesquise: SimpMessagingTemplate
+Pesquise: /topic/items
+
+O CRUD, JWT E WEBSOCKET JÁ ESTÃO IMPLEMENTADOS COMO EXEMPLO.
