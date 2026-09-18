@@ -1,0 +1,41 @@
+# Sobe banco + backend juntos, sem instalar MySQL na máquina.
+#
+#   docker compose up --build      (sobe tudo)
+#   docker compose down            (para tudo)
+#   docker compose down -v         (para tudo E apaga os dados do banco)
+
+services:
+
+  banco:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: financas
+    ports:
+      - "3306:3306"
+    volumes:
+      - dados-mysql:/var/lib/mysql
+    healthcheck:
+      # o backend só sobe depois que o banco responde
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      banco:
+        condition: service_healthy
+    environment:
+      # "banco" é o nome do serviço acima: dentro do Docker ele vira o host
+      DB_URL: jdbc:mysql://banco:3306/financas?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo
+      DB_USER: root
+      DB_PASSWORD: root
+      JWT_SECRET: troque-esta-chave-por-uma-de-32-caracteres-ou-mais
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+
+volumes:
+  dados-mysql:

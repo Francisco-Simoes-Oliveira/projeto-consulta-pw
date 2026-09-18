@@ -1,0 +1,11 @@
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\config\SecurityConfig.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\controller\AuthController.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\controller\InvestimentoController.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\dto\InvestimentoDTO.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\exception\GlobalExceptionHandler.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\model\Investimento.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\repository\InvestimentoRepository.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\security\JwtAuthenticationFilter.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\security\JwtUtils.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\service\InvestimentoService.java
+C:\Users\Giovana\OneDrive\WorkSpace\PW\consulta_Giovana_L\simulado1\backend\src\main\java\com\simulado1\Simulado1Application.java

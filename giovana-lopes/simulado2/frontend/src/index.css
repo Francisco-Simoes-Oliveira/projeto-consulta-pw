@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #059669;
+  --primary-hover: #047857;
+  --bg-app: #f8fafc;
+  --border-color: #cbd5e1;
+  --text-main: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  width: 100%;
+}
+
+/* Header */
+.app-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 16px 24px;
+}
+
+.header-container {
+  max-width: 950px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+.header-subtitle-param {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.header-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.nav-link.active, .nav-link:hover {
+  color: #059669;
+  background-color: #ecfdf5;
+}
+
+/* Card Hub / Home */
+.card-hub {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto 0 auto;
+}
+
+.icon-badge {
+  background: #ecfdf5;
+  padding: 16px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.description-text {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 12px 0 24px 0;
+}
+
+/* Estilo Janela */
+.window-card {
+  background: #ffffff;
+  border: 2px solid #94a3b8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.window-bar {
+  background: #e2e8f0;
+  border-bottom: 2px solid #cbd5e1;
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-tab {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-bottom: none;
+  padding: 4px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  color: #334155;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-win {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #64748b;
+  background: #f1f5f9;
+  display: inline-block;
+}
+
+.window-body {
+  padding: 30px;
+}
+
+.greeting-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+/* Formulário */
+.form-layout {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.form-buttons-row {
+  margin-top: 4px;
+}
+
+.btn-green-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #059669;
+  color: white;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-green-main:hover {
+  background-color: #047857;
+}
+
+.btn-green-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-green-secondary:hover {
+  background-color: #059669;
+}
+
+.calc-result-box {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #065f46;
+  font-size: 1rem;
+}
+
+/* Badges de Classificação */
+.badge-pill {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.badge-caminhada { background: #dbeafe; color: #1e40af; }
+.badge-trote { background: #fef3c7; color: #92400e; }
+.badge-corrida { background: #fee2e2; color: #991b1b; }
+
+/* Tabela */
+.table-wrapper {
+  margin-top: 32px;
+}
+
+.table-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  background-color: #059669;
+  color: white;
+  padding: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid #047857;
+}
+
+.data-table td {
+  padding: 9px;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid #cbd5e1;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.empty-row {
+  color: #64748b;
+  font-style: italic;
+  padding: 16px;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btn-red-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-red-clear:hover {
+  background-color: #dc2626;
+}
+
+.feedback-box {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feedback-box.sucesso { background: #dcfce7; color: #166534; }
+.feedback-box.erro { background: #fee2e2; color: #991b1b; }
