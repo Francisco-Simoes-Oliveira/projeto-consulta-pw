@@ -1,0 +1,41 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+backend/target/
+backend/.m2/
+backend/.jdk21/
+backend/.jdk21.zip
+backend/.classpath
+backend/.project
+backend/.settings/
+.env
+frontend/.env
+_docs
+*.local
+AGENTS.md
+.codex
+graphify-out
+
+# Credentials
+application-secrets.properties
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

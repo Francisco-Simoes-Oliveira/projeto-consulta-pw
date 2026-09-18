@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+export const WALLET_MEMBER_ROLES = Object.freeze({
+  OWNER: 'OWNER',
+  EDITOR: 'EDITOR',
+  VIEWER: 'VIEWER',
+})
+
+export const WALLET_MEMBER_STATUS = Object.freeze({
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  REMOVED: 'REMOVED',
+})
+
+export const WALLET_MEMBER_ROLE_LABELS = Object.freeze({
+  [WALLET_MEMBER_ROLES.OWNER]: 'Proprietário',
+  [WALLET_MEMBER_ROLES.EDITOR]: 'Editor',
+  [WALLET_MEMBER_ROLES.VIEWER]: 'Visualizador',
+})
+
+export const ASSIGNABLE_WALLET_MEMBER_ROLES = Object.freeze([
+  WALLET_MEMBER_ROLES.EDITOR,
+  WALLET_MEMBER_ROLES.VIEWER,
+])
