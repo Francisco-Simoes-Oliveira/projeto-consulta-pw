@@ -1,0 +1,1 @@
+import {Client} from '@stomp/stompjs';import SockJS from 'sockjs-client';import {API_URL} from './api';export function subscribeGestao(cb){const c=new Client({webSocketFactory:()=>new SockJS(`${API_URL}/ws`),reconnectDelay:3000,onConnect:()=>c.subscribe('/topic/gestao',m=>cb(JSON.parse(m.body))) });c.activate();return()=>c.deactivate()}

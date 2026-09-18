@@ -1,0 +1,1 @@
+package br.com.social.comment.dto;import jakarta.validation.constraints.*;public record CommentRequest(@NotBlank @Size(max=800) String content){}

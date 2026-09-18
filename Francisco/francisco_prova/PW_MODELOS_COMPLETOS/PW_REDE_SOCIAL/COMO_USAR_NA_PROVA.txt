@@ -1,0 +1,34 @@
+MODELO PW — Rede Social
+
+LOGIN ADMIN: admin@teste.com / 123456
+LOGIN USER: usuario@teste.com / 123456
+
+BACKEND
+cd backend
+mvnw.cmd spring-boot:run
+
+FRONTEND
+cd frontend
+npm install
+npm run dev
+
+FRONTEND: http://localhost:5173
+BACKEND: http://localhost:8080
+SWAGGER: http://localhost:8080/swagger-ui.html
+H2: http://localhost:8080/h2-console
+
+ENTIDADES PRINCIPAIS: Post, PostLike, Comment
+
+PADRÃO PARA ADAPTAR:
+1. Entity: campos/tabela.
+2. DTO Request: validações.
+3. Repository: consultas.
+4. Service: regras e @Transactional.
+5. Controller: rotas REST + permissões.
+6. service JS: Axios.
+7. page JSX: formulário/tabela/tela.
+8. App.jsx: menu por perfil ADMIN/USER.
+
+Procure por @PreAuthorize para ver proteção administrativa.
+Procure por @Transactional para regras que mexem em mais de uma tabela.
+Procure por SimpMessagingTemplate para eventos WebSocket.

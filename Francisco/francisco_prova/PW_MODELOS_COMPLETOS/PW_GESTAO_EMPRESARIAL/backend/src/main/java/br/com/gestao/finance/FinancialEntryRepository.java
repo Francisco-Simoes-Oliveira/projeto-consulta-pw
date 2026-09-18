@@ -1,0 +1,1 @@
+package br.com.gestao.finance; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface FinancialEntryRepository extends JpaRepository<FinancialEntry,Long>{List<FinancialEntry> findAllByOrderByCreatedAtDesc();}

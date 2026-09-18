@@ -3,3 +3,25 @@ CRUD | VALIDACAO | JWT | WEBSOCKET | CORS | AXIOS | ROUTER | PWA | SWAGGER | OWA
 
 BUSQUE NO DEPLOY_E_IA.md POR:
 DOCKER | RENDER | VERCEL | BANCO | CORS | IA | GEMINI | RATE LIMIT | README
+
+=== FRONT-END NOVO ===
+FILTROS TABELA           -> CONSULTA seção 56 / ItemsPage.jsx
+USEMEMO                  -> CONSULTA seção 55
+COMPONENTES E PROPS      -> CONSULTA seção 50
+FORMULÁRIOS              -> CONSULTA seções 52 e 53
+USEEFFECT                -> CONSULTA seção 54
+AXIOS                     -> CONSULTA seção 59
+QUERY PARAMS              -> CONSULTA seção 60
+JWT FRONT                 -> CONSULTA seção 61
+LOCALSTORAGE              -> CONSULTA seção 62
+CUSTOM HOOK               -> CONSULTA seção 63 / hooks/useItems.js
+DASHBOARD                 -> CONSULTA seção 64 / DashboardPage.jsx
+CSV                       -> CONSULTA seção 65 / ReportsPage.jsx
+PDF / IMPRIMIR            -> CONSULTA seção 66 / ReportsPage.jsx
+UPLOAD                    -> CONSULTA seção 68
+VITE ENV                  -> CONSULTA seção 69
+SOCKJS GLOBAL ERROR       -> CONSULTA seção 70
+ERROS REACT               -> CONSULTA seção 71
+DEBUG NETWORK             -> CONSULTA seção 72
+CSS RESPONSIVO            -> CONSULTA seção 73
+CHECKLIST FRONT           -> CONSULTA seção 74

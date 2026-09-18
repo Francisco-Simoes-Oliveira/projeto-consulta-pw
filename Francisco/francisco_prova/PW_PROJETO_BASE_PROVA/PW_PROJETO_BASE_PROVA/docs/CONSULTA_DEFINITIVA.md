@@ -1701,3 +1701,1132 @@ Na prova, pesquise no editor por:
 - `IA`
 
 Assim você encontra a seção sem perder tempo.
+
+---
+
+# 49. FRONT-END REACT — GUIA AMPLIADO PARA A PROVA
+
+Esta seção é um complemento prático. A ideia é conseguir olhar uma questão e localizar rapidamente o padrão de React necessário.
+
+## 49.1 Estrutura recomendada
+
+```text
+src/
+├── components/       # componentes reutilizáveis
+├── hooks/            # hooks próprios
+├── pages/            # telas completas
+├── services/         # Axios e chamadas à API
+├── utils/            # funções auxiliares
+├── App.jsx
+├── main.jsx
+└── styles.css
+```
+
+Regra simples:
+
+- `pages`: tela inteira;
+- `components`: pedaços reutilizáveis;
+- `services`: comunicação HTTP;
+- `hooks`: lógica React reutilizável;
+- `utils`: funções JavaScript sem estado React.
+
+---
+
+# 50. COMPONENTES, PROPS E EVENTOS
+
+## Componente simples
+
+```jsx
+function Titulo() {
+  return <h1>Olá</h1>
+}
+```
+
+## Props
+
+```jsx
+function Card({ titulo, valor }) {
+  return (
+    <div>
+      <strong>{titulo}</strong>
+      <span>{valor}</span>
+    </div>
+  )
+}
+
+<Card titulo="Total" valor={10} />
+```
+
+## Evento de clique
+
+```jsx
+<button onClick={() => alert('clicou')}>Clique</button>
+```
+
+Não faça:
+
+```jsx
+<button onClick={alert('clicou')}>Clique</button>
+```
+
+porque isso executa imediatamente durante o render.
+
+## Passar função para componente filho
+
+```jsx
+function Filho({ onExcluir }) {
+  return <button onClick={() => onExcluir(10)}>Excluir</button>
+}
+```
+
+---
+
+# 51. USESTATE — ESTADO
+
+```jsx
+const [nome, setNome] = useState('')
+```
+
+Alterar:
+
+```jsx
+setNome('Francisco')
+```
+
+Objeto:
+
+```jsx
+const [form, setForm] = useState({
+  nome: '',
+  preco: '',
+  ativo: true
+})
+```
+
+Atualize preservando os outros campos:
+
+```jsx
+setForm({
+  ...form,
+  nome: e.target.value
+})
+```
+
+Forma segura quando depende do valor anterior:
+
+```jsx
+setForm(atual => ({
+  ...atual,
+  nome: 'Novo nome'
+}))
+```
+
+Arrays:
+
+```jsx
+setItems(atual => [...atual, novoItem])
+```
+
+Excluir:
+
+```jsx
+setItems(atual => atual.filter(item => item.id !== id))
+```
+
+Atualizar um item:
+
+```jsx
+setItems(atual => atual.map(item =>
+  item.id === atualizado.id ? atualizado : item
+))
+```
+
+---
+
+# 52. INPUTS CONTROLADOS
+
+## Texto
+
+```jsx
+<input
+  value={form.nome}
+  onChange={e => setForm({ ...form, nome: e.target.value })}
+/>
+```
+
+## Number
+
+O valor ainda chega como string:
+
+```jsx
+<input
+  type="number"
+  value={form.preco}
+  onChange={e => setForm({ ...form, preco: e.target.value })}
+/>
+```
+
+Antes de enviar:
+
+```jsx
+const payload = {
+  ...form,
+  preco: Number(form.preco)
+}
+```
+
+## Checkbox
+
+```jsx
+<input
+  type="checkbox"
+  checked={form.ativo}
+  onChange={e => setForm({ ...form, ativo: e.target.checked })}
+/>
+```
+
+## Select
+
+```jsx
+<select
+  value={form.status}
+  onChange={e => setForm({ ...form, status: e.target.value })}
+>
+  <option value="ATIVO">Ativo</option>
+  <option value="INATIVO">Inativo</option>
+</select>
+```
+
+## Textarea
+
+```jsx
+<textarea
+  value={form.descricao}
+  onChange={e => setForm({ ...form, descricao: e.target.value })}
+/>
+```
+
+---
+
+# 53. FORMULÁRIO COMPLETO
+
+```jsx
+function Formulario() {
+  const [form, setForm] = useState({ nome: '', preco: '' })
+
+  async function submit(e) {
+    e.preventDefault()
+
+    const payload = {
+      ...form,
+      preco: Number(form.preco)
+    }
+
+    await api.post('/items', payload)
+
+    setForm({ nome: '', preco: '' })
+  }
+
+  return (
+    <form onSubmit={submit}>
+      <input
+        value={form.nome}
+        onChange={e => setForm({...form, nome:e.target.value})}
+      />
+
+      <input
+        type="number"
+        value={form.preco}
+        onChange={e => setForm({...form, preco:e.target.value})}
+      />
+
+      <button>Salvar</button>
+    </form>
+  )
+}
+```
+
+O botão dentro de um `form` é `submit` por padrão.
+
+Para botão que NÃO deve enviar:
+
+```jsx
+<button type="button">Cancelar</button>
+```
+
+---
+
+# 54. USEEFFECT
+
+Executar uma vez ao montar:
+
+```jsx
+useEffect(() => {
+  carregar()
+}, [])
+```
+
+Executar quando uma variável mudar:
+
+```jsx
+useEffect(() => {
+  carregar(id)
+}, [id])
+```
+
+Cleanup:
+
+```jsx
+useEffect(() => {
+  const intervalo = setInterval(() => {
+    console.log('rodando')
+  }, 1000)
+
+  return () => clearInterval(intervalo)
+}, [])
+```
+
+WebSocket também deve ter cleanup:
+
+```jsx
+useEffect(() => {
+  return subscribeItems(() => carregar())
+}, [])
+```
+
+---
+
+# 55. USEMEMO — FILTROS, CÁLCULOS E DASHBOARD
+
+`useMemo` evita refazer cálculos a cada render quando as dependências não mudaram.
+
+Exemplo de filtro:
+
+```jsx
+const filtrados = useMemo(() => {
+  return items.filter(item =>
+    item.nome.toLowerCase().includes(busca.toLowerCase())
+  )
+}, [items, busca])
+```
+
+Indicadores:
+
+```jsx
+const resumo = useMemo(() => {
+  const total = items.reduce((soma, item) => soma + Number(item.preco), 0)
+
+  return {
+    quantidade: items.length,
+    total,
+    media: items.length ? total / items.length : 0
+  }
+}, [items])
+```
+
+Não use `useMemo` para tudo. Ele é útil principalmente para:
+
+- filtros;
+- ordenações;
+- agrupamentos;
+- somatórios;
+- grandes listas;
+- indicadores de dashboard.
+
+---
+
+# 56. FILTROS DE TABELA — MODELO DE PROVA
+
+Estado:
+
+```jsx
+const [filtros, setFiltros] = useState({
+  texto: '',
+  status: 'todos',
+  minimo: '',
+  maximo: ''
+})
+```
+
+Filtro completo:
+
+```jsx
+const dadosFiltrados = useMemo(() => {
+  const texto = filtros.texto.toLowerCase()
+
+  return items.filter(item => {
+    const conteudo = `${item.id} ${item.nome} ${item.descricao}`.toLowerCase()
+    const preco = Number(item.preco)
+
+    if (texto && !conteudo.includes(texto)) return false
+
+    if (filtros.status === 'ativo' && !item.ativo)
+      return false
+
+    if (filtros.status === 'inativo' && item.ativo)
+      return false
+
+    if (filtros.minimo !== '' && preco < Number(filtros.minimo))
+      return false
+
+    if (filtros.maximo !== '' && preco > Number(filtros.maximo))
+      return false
+
+    return true
+  })
+}, [items, filtros])
+```
+
+## Ordenação
+
+```jsx
+const ordenados = [...dadosFiltrados].sort((a, b) =>
+  Number(a.preco) - Number(b.preco)
+)
+```
+
+IMPORTANTE: faça cópia com `[...]` antes de `sort` porque `sort()` altera o array original.
+
+Nome:
+
+```jsx
+items.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'))
+```
+
+---
+
+# 57. RENDERIZAÇÃO DE LISTAS
+
+```jsx
+{items.map(item => (
+  <tr key={item.id}>
+    <td>{item.id}</td>
+    <td>{item.nome}</td>
+  </tr>
+))}
+```
+
+Sempre use uma `key` estável.
+
+Preferência:
+
+```jsx
+key={item.id}
+```
+
+Evite índice se os registros podem mudar de posição:
+
+```jsx
+key={index}
+```
+
+---
+
+# 58. RENDERIZAÇÃO CONDICIONAL
+
+```jsx
+{loading && <p>Carregando...</p>}
+```
+
+```jsx
+{erro ? <p>{erro}</p> : <Tabela />}
+```
+
+```jsx
+{items.length === 0 && (
+  <p>Nenhum registro.</p>
+)}
+```
+
+Classe condicional:
+
+```jsx
+<span className={item.ativo ? 'ativo' : 'inativo'}>
+  {item.ativo ? 'Ativo' : 'Inativo'}
+</span>
+```
+
+Template string:
+
+```jsx
+className={`badge ${item.ativo ? 'success' : 'danger'}`}
+```
+
+---
+
+# 59. AXIOS — PADRÃO RECOMENDADO
+
+`services/api.js`:
+
+```jsx
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+})
+
+export default api
+```
+
+Service:
+
+```jsx
+import api from './api'
+
+export async function listar() {
+  const { data } = await api.get('/items')
+  return data
+}
+
+export async function buscar(id) {
+  const { data } = await api.get(`/items/${id}`)
+  return data
+}
+
+export async function criar(item) {
+  const { data } = await api.post('/items', item)
+  return data
+}
+
+export async function atualizar(id, item) {
+  const { data } = await api.put(`/items/${id}`, item)
+  return data
+}
+
+export async function excluir(id) {
+  await api.delete(`/items/${id}`)
+}
+```
+
+---
+
+# 60. QUERY PARAMS
+
+Spring:
+
+```java
+@GetMapping
+public List<Item> listar(@RequestParam(required = false) String nome) {
+    ...
+}
+```
+
+React/Axios:
+
+```jsx
+api.get('/items', {
+  params: {
+    nome: busca
+  }
+})
+```
+
+Resultado:
+
+```text
+GET /api/items?nome=teste
+```
+
+---
+
+# 61. JWT NO FRONT-END
+
+Salvar:
+
+```jsx
+localStorage.setItem('token', data.token)
+```
+
+Interceptor:
+
+```jsx
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('token')
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
+```
+
+Tratar token inválido:
+
+```jsx
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    }
+
+    return Promise.reject(error)
+  }
+)
+```
+
+Logout:
+
+```jsx
+localStorage.removeItem('token')
+localStorage.removeItem('user')
+```
+
+---
+
+# 62. LOCALSTORAGE
+
+Salvar objeto:
+
+```jsx
+localStorage.setItem('usuario', JSON.stringify(usuario))
+```
+
+Ler:
+
+```jsx
+const usuario = JSON.parse(localStorage.getItem('usuario'))
+```
+
+Remover:
+
+```jsx
+localStorage.removeItem('usuario')
+```
+
+Limpar tudo:
+
+```jsx
+localStorage.clear()
+```
+
+Não armazene senha no localStorage.
+
+---
+
+# 63. CUSTOM HOOKS
+
+Se várias páginas precisam da mesma lógica, crie um hook.
+
+```jsx
+export function useItems() {
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  async function reload() {
+    try {
+      setItems(await listar())
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    reload()
+  }, [])
+
+  return { items, loading, reload }
+}
+```
+
+Uso:
+
+```jsx
+const { items, loading, reload } = useItems()
+```
+
+No projeto-base existe `src/hooks/useItems.js`.
+
+---
+
+# 64. DASHBOARD SEM BIBLIOTECA DE GRÁFICO
+
+Indicadores:
+
+```jsx
+const total = items.length
+const ativos = items.filter(i => i.ativo).length
+const valor = items.reduce((s, i) => s + Number(i.preco), 0)
+```
+
+Barra proporcional:
+
+```jsx
+const maximo = Math.max(...items.map(i => Number(i.preco)), 1)
+
+<div
+  className="barra"
+  style={{ width: `${(item.preco / maximo) * 100}%` }}
+/>
+```
+
+CSS:
+
+```css
+.trilho {
+  height: 12px;
+  background: #eee;
+}
+
+.barra {
+  height: 100%;
+  background: #222;
+}
+```
+
+Isso evita depender de Chart.js/Recharts durante a prova.
+
+---
+
+# 65. GERAR CSV NO FRONT-END
+
+```jsx
+function exportarCsv(items) {
+  const linhas = [
+    ['ID', 'Nome', 'Preço'],
+    ...items.map(i => [i.id, i.nome, i.preco])
+  ]
+
+  const csv = linhas
+    .map(linha => linha.join(';'))
+    .join('\r\n')
+
+  const blob = new Blob([csv], {
+    type: 'text/csv;charset=utf-8;'
+  })
+
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+
+  link.href = url
+  link.download = 'relatorio.csv'
+  link.click()
+
+  URL.revokeObjectURL(url)
+}
+```
+
+Para Excel reconhecer acentos, pode adicionar BOM:
+
+```jsx
+const csv = '\uFEFF' + conteudo
+```
+
+---
+
+# 66. RELATÓRIO EM PDF SEM BIBLIOTECA
+
+O jeito mais simples e confiável durante a prova:
+
+```jsx
+<button onClick={() => window.print()}>
+  Imprimir / Salvar PDF
+</button>
+```
+
+CSS:
+
+```css
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .relatorio {
+    border: 0;
+    box-shadow: none;
+  }
+}
+```
+
+No navegador:
+
+```text
+Imprimir → Destino → Salvar como PDF
+```
+
+---
+
+# 67. DOWNLOAD DE ARQUIVO
+
+Blob:
+
+```jsx
+const blob = new Blob([conteudo], {
+  type: 'text/plain'
+})
+
+const url = URL.createObjectURL(blob)
+const a = document.createElement('a')
+a.href = url
+a.download = 'arquivo.txt'
+a.click()
+URL.revokeObjectURL(url)
+```
+
+---
+
+# 68. UPLOAD DE ARQUIVO
+
+HTML:
+
+```jsx
+<input
+  type="file"
+  onChange={e => setArquivo(e.target.files[0])}
+/>
+```
+
+Enviar multipart:
+
+```jsx
+const formData = new FormData()
+formData.append('arquivo', arquivo)
+
+await api.post('/upload', formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
+```
+
+---
+
+# 69. VITE — VARIÁVEIS DE AMBIENTE
+
+`.env`:
+
+```text
+VITE_API_URL=http://localhost:8080
+```
+
+React:
+
+```jsx
+const url = import.meta.env.VITE_API_URL
+```
+
+IMPORTANTE: no Vite, variáveis que serão expostas ao front precisam começar com:
+
+```text
+VITE_
+```
+
+Nunca coloque segredo no front:
+
+```text
+VITE_AI_API_KEY=...
+```
+
+é inseguro porque tudo que vai para o navegador pode ser visto pelo usuário.
+
+Chaves secretas devem ficar no Spring Boot.
+
+---
+
+# 70. ERRO DO SOCKJS NO VITE — `global is not defined`
+
+Erro:
+
+```text
+Uncaught ReferenceError: global is not defined
+sockjs-client/lib/utils/browser-crypto.js
+```
+
+`vite.config.js`:
+
+```jsx
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+
+  define: {
+    global: 'globalThis'
+  }
+})
+```
+
+Depois reinicie:
+
+```bash
+npm run dev -- --force
+```
+
+Se necessário, apague cache:
+
+PowerShell:
+
+```powershell
+Remove-Item -Recurse -Force node_modules\.vite
+npm run dev
+```
+
+---
+
+# 71. ERROS COMUNS DO REACT
+
+## `Cannot read properties of undefined`
+
+Problema:
+
+```jsx
+usuario.nome
+```
+
+quando `usuario` ainda não existe.
+
+Use:
+
+```jsx
+usuario?.nome
+```
+
+ou:
+
+```jsx
+{usuario && <p>{usuario.nome}</p>}
+```
+
+## `items.map is not a function`
+
+A variável deveria ser array, mas recebeu outra coisa.
+
+Inicialize:
+
+```jsx
+const [items, setItems] = useState([])
+```
+
+Veja o JSON recebido:
+
+```jsx
+console.log(response.data)
+```
+
+Talvez backend retorne:
+
+```json
+{
+  "content": []
+}
+```
+
+Então:
+
+```jsx
+setItems(response.data.content)
+```
+
+## Tela branca
+
+Abra:
+
+```text
+F12 → Console
+```
+
+Normalmente existe erro JavaScript de importação, variável ou JSX.
+
+## CORS
+
+Console pode mostrar bloqueio por política CORS.
+
+A correção é no backend, não no React.
+
+## 401
+
+Token faltando ou inválido.
+
+Veja aba Network:
+
+```text
+Authorization: Bearer ...
+```
+
+## 403
+
+Usuário autenticado, mas sem permissão.
+
+## 404
+
+Confira:
+
+- base URL;
+- `/api`;
+- endpoint do controller;
+- ID;
+- porta do Spring.
+
+---
+
+# 72. DEBUG DO FRONT NO NAVEGADOR
+
+Abra DevTools com `F12`.
+
+## Console
+
+Erros JavaScript.
+
+## Network
+
+Clique na requisição e confira:
+
+```text
+Request URL
+Request Method
+Status Code
+Request Headers
+Request Payload
+Response
+```
+
+É o melhor lugar para descobrir se o problema está no React ou Spring.
+
+Exemplo:
+
+```text
+POST http://localhost:8080/api/items
+400 Bad Request
+```
+
+Abra `Response` e veja a validação que o Spring retornou.
+
+---
+
+# 73. CSS RESPONSIVO RÁPIDO
+
+Grid:
+
+```css
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+```
+
+Tablet:
+
+```css
+@media (max-width: 1000px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+```
+
+Celular:
+
+```css
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+Tabela que não quebra layout:
+
+```css
+.table-wrap {
+  overflow-x: auto;
+}
+```
+
+---
+
+# 74. CHECKLIST DE FRONT PARA A PROVA
+
+Se pedirem uma nova tela CRUD:
+
+1. criar página;
+2. criar service;
+3. `useState` do formulário;
+4. `useState([])` da lista;
+5. função `carregar`;
+6. `useEffect` chamando `carregar`;
+7. `submit` com POST/PUT;
+8. botão editar;
+9. botão excluir;
+10. exibir erros do backend;
+11. criar filtros com `useMemo`;
+12. testar Network no navegador.
+
+Se pedirem dashboard:
+
+1. carregar dados;
+2. `reduce` para somas;
+3. `filter` para quantidades;
+4. `useMemo` para cálculos;
+5. cards de indicadores;
+6. gráfico simples ou biblioteca se já estiver instalada.
+
+Se pedirem relatório:
+
+1. carregar dados;
+2. filtros;
+3. resumo;
+4. tabela;
+5. CSV;
+6. botão `window.print()`;
+7. CSS `@media print`.
+
+Se pedirem autenticação:
+
+1. tela login;
+2. POST login;
+3. salvar token;
+4. interceptor Axios;
+5. logout;
+6. tratar 401/403.
+
+---
+
+# 75. MAPA DO FRONT DO PROJETO-BASE ATUALIZADO
+
+```text
+frontend/src/
+├── hooks/
+│   └── useItems.js
+├── pages/
+│   ├── DashboardPage.jsx
+│   ├── ItemsPage.jsx
+│   ├── LoginPage.jsx
+│   └── ReportsPage.jsx
+├── services/
+│   ├── api.js
+│   ├── authService.js
+│   ├── itemService.js
+│   └── socketService.js
+├── App.jsx
+├── main.jsx
+└── styles.css
+```
+
+Para estudar filtros, procure:
+
+```text
+ItemsPage.jsx
+```
+
+Para estudar dashboard:
+
+```text
+DashboardPage.jsx
+```
+
+Para estudar CSV/PDF/relatório:
+
+```text
+ReportsPage.jsx
+```
+
+Para estudar lógica reutilizável:
+
+```text
+hooks/useItems.js
+```

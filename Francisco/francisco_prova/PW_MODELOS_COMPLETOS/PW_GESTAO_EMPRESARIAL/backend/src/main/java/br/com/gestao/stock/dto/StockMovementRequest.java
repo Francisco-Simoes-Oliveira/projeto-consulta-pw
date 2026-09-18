@@ -1,0 +1,1 @@
+package br.com.gestao.stock.dto; import br.com.gestao.stock.MovementType; import jakarta.validation.constraints.*; public record StockMovementRequest(@NotNull Long productId,@NotNull MovementType type,@NotNull @Min(0) Integer quantity,@Size(max=300) String note){}

@@ -1,0 +1,1 @@
+package br.com.social.post;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface PostLikeRepository extends JpaRepository<PostLike,Long>{long countByPostId(Long postId);boolean existsByPostIdAndUserEmail(Long p,String e);Optional<PostLike> findByPostIdAndUserEmail(Long p,String e);void deleteByPostId(Long p);}

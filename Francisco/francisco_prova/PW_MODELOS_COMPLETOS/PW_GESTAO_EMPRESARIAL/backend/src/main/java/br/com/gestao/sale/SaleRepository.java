@@ -1,0 +1,1 @@
+package br.com.gestao.sale; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface SaleRepository extends JpaRepository<Sale,Long>{List<Sale> findAllByOrderByCreatedAtDesc(); List<Sale> findByCreatedByOrderByCreatedAtDesc(String email);}

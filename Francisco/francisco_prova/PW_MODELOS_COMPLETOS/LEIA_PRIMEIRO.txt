@@ -1,0 +1,13 @@
+PACOTE DE MODELOS COMPLETOS — PROGRAMAÇÃO WEB
+
+1) PW_GESTAO_EMPRESARIAL
+   Estoque, movimentações, vendas, financeiro, dashboard e usuários.
+
+2) PW_REDE_SOCIAL
+   Feed, posts, curtidas, comentários, WebSocket, moderação e usuários.
+
+3) PW_LOJA_ONLINE
+   Catálogo, carrinho, checkout, pedidos, estoque, admin de produtos e usuários.
+
+Todos usam React + Vite + Axios no frontend e Spring Boot + JPA + Security + JWT + H2 no backend.
+Cada um tem ADMIN e USER prontos para comparar permissões.

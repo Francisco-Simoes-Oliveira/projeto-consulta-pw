@@ -37,3 +37,38 @@ Pesquise: SimpMessagingTemplate
 Pesquise: /topic/items
 
 O CRUD, JWT E WEBSOCKET JÁ ESTÃO IMPLEMENTADOS COMO EXEMPLO.
+
+============================================================
+NOVOS EXEMPLOS PRONTOS
+============================================================
+
+FILTROS DE TABELA:
+frontend/src/pages/ItemsPage.jsx
+- texto por nome/descrição/ID
+- status
+- preço mínimo/máximo
+- ordenação
+- limpar filtros
+
+DASHBOARD:
+frontend/src/pages/DashboardPage.jsx
+- cards de indicadores
+- soma e média
+- ativos/inativos
+- gráfico de barras sem biblioteca
+- últimos registros
+
+RELATÓRIO:
+frontend/src/pages/ReportsPage.jsx
+- filtros
+- resumo
+- tabela
+- CSV
+- imprimir / salvar PDF
+
+HOOK REUTILIZÁVEL:
+frontend/src/hooks/useItems.js
+
+CONSULTA DE FRONT:
+docs/CONSULTA_DEFINITIVA.md
+Procure pelas seções 49 até 75.

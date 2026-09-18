@@ -1,0 +1,1 @@
+package br.com.gestao.sale.dto; import jakarta.validation.Valid; import jakarta.validation.constraints.*; import java.util.*; public record CreateSaleRequest(@Size(max=120) String customerName,@NotEmpty List<@Valid Line> items){public record Line(@NotNull Long productId,@NotNull @Min(1) Integer quantity){}}

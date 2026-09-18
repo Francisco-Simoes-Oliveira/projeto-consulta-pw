@@ -1,0 +1,1 @@
+package br.com.loja.order;public enum OrderStatus{PENDING,PAID,PROCESSING,SHIPPED,DELIVERED,CANCELED}

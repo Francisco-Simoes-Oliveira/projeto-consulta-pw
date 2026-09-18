@@ -142,3 +142,93 @@ PW_PROJETO_BASE_PROVA/
 │       └── services/
 └── docs/
 ```
+
+## Correção SockJS + Vite: `global is not defined`
+
+O `sockjs-client` ainda referencia a variável global do ambiente Node em alguns módulos.
+No Vite, o projeto já possui esta compatibilidade em `frontend/vite.config.js`:
+
+```js
+define: {
+  global: 'globalThis'
+}
+```
+
+Se você estava com o servidor Vite aberto antes da alteração, pare o processo e execute novamente.
+Se o cache continuar usando o bundle antigo, rode:
+
+```bash
+cd frontend
+npm run dev -- --force
+```
+
+Ou apague `node_modules/.vite` e inicie novamente.
+
+## Atualização: Dashboard, filtros e relatórios
+
+O frontend agora possui navegação lateral com três áreas:
+
+- **Dashboard**: indicadores, status dos itens, gráfico simples, maiores preços e últimos registros.
+- **Itens / CRUD**: cadastro + edição + exclusão + filtros por texto/status/faixa de preço + ordenação.
+- **Relatórios**: filtros, resumo, tabela pronta para impressão, exportação CSV e opção de salvar como PDF pelo navegador.
+
+Nenhuma biblioteca de gráfico ou PDF foi adicionada. Isso foi proposital para reduzir dependências durante a prova.
+
+O material `docs/CONSULTA_DEFINITIVA.md` também possui uma nova seção extensa de React/front-end.
+
+---
+
+## Correção V4 — WebSocket CORS + MySQL/phpMyAdmin
+
+### WebSocket / SockJS
+Se o navegador mostrar:
+
+```text
+Access-Control-Allow-Credentials ... must be 'true'
+```
+
+o `SecurityConfig` precisa ter:
+
+```java
+c.setAllowedOrigins(List.of("http://localhost:5173"));
+c.setAllowCredentials(true);
+```
+
+Não use `*` em `allowedOrigins` quando `allowCredentials(true)` estiver ativo.
+
+### Banco e phpMyAdmin
+A V4 usa **MySQL/MariaDB por padrão**, portanto os registros aparecem no phpMyAdmin no banco:
+
+```text
+prova_base
+```
+
+Configuração padrão:
+
+```text
+host: localhost
+porta: 3306
+banco: prova_base
+usuario: root
+senha: vazia
+```
+
+Você pode trocar sem editar código:
+
+```text
+DB_URL=jdbc:mysql://localhost:3306/outro_banco
+DB_USER=usuario
+DB_PASSWORD=senha
+```
+
+Se estiver usando XAMPP/WAMP, inicie o MySQL antes do backend.
+
+### Usar H2 como alternativa
+O H2 continua disponível como perfil de emergência:
+
+```powershell
+cd backend
+.\mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=h2"
+```
+
+Nesse modo os dados ficam no arquivo `backend/data/provabase.mv.db` e **não aparecem no phpMyAdmin**.

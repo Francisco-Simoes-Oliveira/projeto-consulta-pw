@@ -1,0 +1,1 @@
+package br.com.gestao.finance; public enum EntryType { INCOME, EXPENSE }

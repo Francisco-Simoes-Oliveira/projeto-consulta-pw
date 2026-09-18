@@ -1,0 +1,2 @@
+package br.com.gestao.product.dto; import jakarta.validation.constraints.*; import java.math.BigDecimal;
+public record ProductRequest(@NotBlank @Size(max=40) String sku,@NotBlank @Size(max=120) String name,@Size(max=80) String category,@NotNull @DecimalMin("0.0") BigDecimal costPrice,@NotNull @DecimalMin("0.0") BigDecimal salePrice,@NotNull @Min(0) Integer stock,@NotNull @Min(0) Integer minStock,Boolean active){}

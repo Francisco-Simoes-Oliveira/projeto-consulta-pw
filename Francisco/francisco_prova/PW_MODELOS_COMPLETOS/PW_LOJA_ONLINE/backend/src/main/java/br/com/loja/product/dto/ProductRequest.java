@@ -1,0 +1,1 @@
+package br.com.loja.product.dto;import jakarta.validation.constraints.*;import java.math.BigDecimal;public record ProductRequest(@NotBlank String sku,@NotBlank String name,@Size(max=1000) String description,String category,@NotNull @DecimalMin("0.01") BigDecimal price,@NotNull @Min(0) Integer stock,Boolean active){}

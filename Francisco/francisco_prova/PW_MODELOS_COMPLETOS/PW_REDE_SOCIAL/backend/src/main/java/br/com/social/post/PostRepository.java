@@ -1,0 +1,1 @@
+package br.com.social.post;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface PostRepository extends JpaRepository<Post,Long>{List<Post> findByHiddenFalseOrderByCreatedAtDesc();List<Post> findByAuthorEmailOrderByCreatedAtDesc(String email);List<Post> findAllByOrderByCreatedAtDesc();}

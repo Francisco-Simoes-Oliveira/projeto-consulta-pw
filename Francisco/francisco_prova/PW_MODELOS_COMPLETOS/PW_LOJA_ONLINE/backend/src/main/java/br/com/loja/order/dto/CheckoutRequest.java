@@ -1,0 +1,1 @@
+package br.com.loja.order.dto;import jakarta.validation.Valid;import jakarta.validation.constraints.*;import java.util.*;public record CheckoutRequest(@NotBlank @Size(max=120) String customerName,@NotBlank @Size(max=500) String shippingAddress,@NotEmpty List<@Valid Line> items){public record Line(@NotNull Long productId,@NotNull @Min(1) Integer quantity){}}

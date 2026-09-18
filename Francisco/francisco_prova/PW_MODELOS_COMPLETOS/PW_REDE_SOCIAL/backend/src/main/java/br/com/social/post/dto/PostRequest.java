@@ -1,0 +1,1 @@
+package br.com.social.post.dto;import jakarta.validation.constraints.*;public record PostRequest(@NotBlank @Size(max=2000) String content){}

@@ -1,0 +1,1 @@
+package br.com.gestao.stock; public enum MovementType { ENTRY, EXIT, ADJUSTMENT, SALE }
